@@ -1,5 +1,6 @@
 package com.ignitec.dslist.services;
 
+import com.ignitec.dslist.dtos.GameDTO;
 import com.ignitec.dslist.entities.Game;
 import com.ignitec.dslist.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,10 @@ public class GameService {
     @Autowired
     private GameRepository gameRepository;
 
-    public List<Game> findAll() {
+    public List<GameDTO> findAll() {
         List<Game> listGame = gameRepository.findAll();
-        return listGame;
+        List<GameDTO> gameDto = listGame.stream().map(game -> new GameDTO(game)).toList();
+        return gameDto;
     }
 }
 
